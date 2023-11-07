@@ -1,4 +1,4 @@
-/*package tn.esprit.rh.achat;
+package tn.esprit.rh.achat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +57,8 @@ public class ProduitServiceTest {
 
     @Test
     public void testDeleteProduit() {
-        produitService.deleteProduit(5L); // Replace with an existing ID
-        Produit deletedProduit = produitService.retrieveProduit(5L); // Replace with an existing ID
+        produitService.deleteProduit(6L); // Replace with an existing ID
+        Produit deletedProduit = produitService.retrieveProduit(6L); // Replace with an existing ID
         assertNull(deletedProduit);
     }
 
@@ -72,4 +72,3 @@ public class ProduitServiceTest {
         assertEquals(stockId, produit.getStock().getIdStock()); // Assuming this is how you're associating with a stock
     }
 }
-*/
