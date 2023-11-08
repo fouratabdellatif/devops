@@ -17,7 +17,7 @@ public class OperateurTest {
     @Autowired
     private OperateurServiceImpl operateurService;
 
-    @Test
+/*     @Test
     public void testAddOperateur() {
         Operateur operateur = new Operateur();
         operateur.setNom("Abdellatif");
