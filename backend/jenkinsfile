@@ -36,6 +36,7 @@ pipeline {
                       }
 			}
 		}
+      
 		stage('sonarqube'){
 			steps{
                 dir("backend") {
@@ -45,5 +46,12 @@ pipeline {
                 }
 			}
 		}
+        stage('deploy'){
+            steps{
+                dir("backend") {
+                    sh "mvn deploy"
+                }
+            }
+        }
 	}
 }
