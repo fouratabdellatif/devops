@@ -14,9 +14,11 @@ pipeline {
 		}
 		stage('sonarqube'){
 			steps{
+                                dir("backend") {
 				withSonarQubeEnv(installationName: 'sonar'){
 				sh "mvn sonar:sonar"
 				}
+                             }
 			}
 		}
 	}
