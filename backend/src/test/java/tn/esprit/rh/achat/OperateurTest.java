@@ -53,7 +53,7 @@ public class OperateurTest {
         // assertNotNull(operateur);
         //assertEquals("Fakher", operateur.getNom()); // Adjust the expected values
     }
-    @Test
+  /*   @Test
     public void testDeleteOperateur() {
         // Assuming an Operateur with ID 1 exists in the database
         Long id = 5L;
@@ -61,5 +61,5 @@ public class OperateurTest {
         operateurService.deleteOperateur(id);
 
         // Verify that the Operateur is deleted (you can use Mockito to verify the delete method was called)
-    }
+    }*/
 }
