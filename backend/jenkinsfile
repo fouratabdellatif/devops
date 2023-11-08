@@ -1,24 +1,37 @@
 pipeline {
 	agent any
-
+      
 	stages {
 
-		stage('Build'){
+        stage('maven'){
+            steps{
+                sh "mvn --version"
+            }
+
+        }
+        stage('Compile'){
+            steps {
+                dir("backend"){
+                    sh "mvn clean compile"
+                }
+            }
+        }
+		stage('Package'){
 			steps {
-                        	dir("backend") {
-                                sh "mvn clean package -DskipTests=true"
-				archive 'target/*.jar'
-                            }
+                dir("backend") {
+                    sh "mvn package -DskipTests=true"
+				    archive 'target/*.jar'
+                }
 				
 			}
 		}
 		stage('sonarqube'){
 			steps{
-                                dir("backend") {
-				withSonarQubeEnv(installationName: 'sonar'){
-				sh "mvn sonar:sonar"
-				}
-                             }
+                dir("backend") {
+				    withSonarQubeEnv(installationName: 'sonar'){
+				    sh "mvn sonar:sonar"
+				    }
+                }
 			}
 		}
 	}
