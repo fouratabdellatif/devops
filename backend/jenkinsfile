@@ -25,6 +25,17 @@ pipeline {
 				
 			}
 		}
+       stage('JUnit')
+        {
+			steps 
+            {
+          		      dir("backend") 
+                      {
+                 		 sh "mvn test"
+		 		         
+                      }
+			}
+		}
 		stage('sonarqube'){
 			steps{
                 dir("backend") {
