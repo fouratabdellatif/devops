@@ -5,9 +5,11 @@ pipeline {
 
 		stage('Build'){
 			steps {
-                                sh "cd backend"
-				sh "mvn clean package -DskipTests=true"
+                        	dir("backend") {
+                                sh "mvn clean package -DskipTests=true"
 				archive 'target/*.jar'
+                            }
+				
 			}
 		}
 		stage('sonarqube'){
