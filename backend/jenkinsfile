@@ -5,7 +5,7 @@ pipeline {
 
 		stage('Build'){
 			steps {
-        cd backend
+                                sh "cd backend"
 				sh "mvn clean package -DskipTests=true"
 				archive 'target/*.jar'
 			}
