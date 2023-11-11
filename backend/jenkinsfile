@@ -53,5 +53,17 @@ pipeline {
                 }
             }
         }*/
+       stage('Docker image') 
+        {
+            steps 
+            {
+               dir("backend") 
+               {
+                 script{
+                 docker.build('nour/achat:$BUILD_NUMBER')
+                 }
+               }
+            }
+        }
 	}
 }
