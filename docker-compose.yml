@@ -4,7 +4,7 @@ services:
     image: mysql:latest
     container_name: docker-compose-mysql-db
     ports:
-      - "3307:3306"
+      - "3307:3307"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=achatdb
@@ -12,10 +12,10 @@ services:
       - my-network
 
   spring-boot-app:
-    image: fourat99/achat
+    image: arijegrissiaa246/achat
     container_name: docker-compose-spring-boot
     ports:
-      - "8088:8089"
+      - "8089:8089"
     depends_on:
       - mysql-db
     environment:
@@ -24,15 +24,5 @@ services:
       - SPRING_DATASOURCE_PASSWORD=root
     networks:
       - my-network
-  angular-app:
-    image: fourat99/front
-    container_name: docker-compose-angular-app
-    ports:
-      - "4200:80"
-    environment:
-      - BACKEND_API_URL=http://192.168.1.94:8080
-    networks:
-      - my-network
-
-networks:
+  networks:
   my-network:
