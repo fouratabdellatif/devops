@@ -1,0 +1,202 @@
+pipeline {
+	agent any
+
+	environment
+	{
+		registry = "meriemnour/achat"
+		registryCredential = 'dockerhub_id'
+		dockerImage = ''
+	}
+	
+	stages {
+		
+		stage('Maven')
+        {
+           		 steps {
+               			 sh "mvn --version"
+           			 }
+        }
+    
+        stage('Compiler le projet') 
+        {
+            steps 
+            {
+                dir("backend") {// Compiler le projet en utilisant Maven
+               sh 'mvn clean compile'
+               }
+            }
+        }
+
+         
+
+		stage('BPackage')
+        {
+			steps 
+            {
+          		      dir("backend") 
+                      {
+                 		 sh "mvn clean package -DskipTests=true"
+		 		         archive 'target/*.jar'
+                      }
+				
+				
+			}
+		}
+
+
+        stage('JUnit')
+        {
+			steps 
+            {
+          		      dir("backend") 
+                      {
+                 		 sh "mvn test"
+		 		         
+                      }
+				
+				
+			}
+		}
+
+        
+
+       /* stage('sonarqube')
+        {
+			steps{
+                dir("backend")
+                 {
+				   withSonarQubeEnv(installationName: 'sonarqube')
+                 {
+				   sh "mvn sonar:sonar"
+				 }
+                }
+			}
+        }
+
+
+
+        stage('Deploy')
+        {
+			steps 
+            {
+          		      dir("backend") 
+                      {
+                 		  sh "mvn deploy "
+		 		         
+                      }
+				
+				
+			}
+		}
+*/
+
+        stage('Docker image') 
+        {
+            steps 
+            {
+               dir("backend") 
+               {
+                 script{
+                	dockerImage =  docker.build(registry + ":$BUILD_NUMBER")
+                 }
+               }
+            }
+        }
+
+
+
+		stage('Deploy our image') 
+		{
+			steps{
+				script 
+				  {
+					docker.withRegistry( '', registryCredential )
+					  {
+						dockerImage.push()
+					  }
+				   }
+				}
+		}
+
+
+		stage('Cleaning up')
+		{
+           		 steps {
+                			sh "docker rmi $registry:$BUILD_NUMBER"
+            			}
+       		 }
+		
+				
+			
+		
+	}
+}
+
+
+/*pipeline {
+    agent any
+    parameters {
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+    }
+    stages {
+        stage("init") {
+            steps {
+                script {
+                   load "script.groovy" 
+                }
+            }
+        }
+        stage("build") {
+            steps {
+                script {
+                    buildApp()
+                }
+            }
+        }
+
+        stage('GIT'){
+            steps{
+                echo 'Getting projet from git'
+                git branch 'nour',
+                url : 'https://github.com/fouratabdellatif/devops.git'
+            }
+        }
+
+
+        stage('Nettoyer le projet') {
+            steps {
+                // Nettoyer le projet en utilisant Maven
+                sh 'mvn clean'
+            }
+        }
+
+        stage('Compiler le projet') {
+            steps {
+                // Compiler le projet en utilisant Maven
+                sh 'mvn compile'
+            }
+        }
+
+
+        stage("test") {
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
+            steps {
+                script {
+                    testApp()
+                }
+            }
+        }
+        stage("deploy") {
+            steps {
+                script {
+                    deployApp()
+                }
+            }
+        }
+    }   
+}*/
