@@ -1,5 +1,10 @@
 pipeline {
 	agent any
+        environment {
+            registry = "arijegrissiaa246/Achat"
+            registryCredential = 'dockerhub_id'
+            dockerImage = ''
+        }
       
 	stages {
 
@@ -60,9 +65,24 @@ pipeline {
                dir("backend") 
                {
                  script{
-                 docker.build('arije/achat:$BUILD_NUMBER')
+                 dockerImage = docker.build(registry + ":$BUILD_NUMBER")
                  }
                }
+            }
+        }
+      stage('Deploy our image')
+       {
+           steps{
+              script {
+                docker.withRegistry( '', registryCredential ) {
+                dockerImage.push()
+                }
+                 }
+               }
+         }
+      stage('Cleaning up') {
+            steps {
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
 	}
