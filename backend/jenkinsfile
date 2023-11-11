@@ -70,7 +70,7 @@ pipeline {
                }
             }
         }
-      stage('Deploy our image')
+      stage('Deploy to dockerhub')
        {
            steps{
               script {
@@ -80,10 +80,18 @@ pipeline {
                  }
                }
          }
-      stage('Cleaning up') {
+   /*   stage('Cleaning up') {
             steps {
                 sh "docker rmi $registry:$BUILD_NUMBER"
             }
-        }
+        }*/
+     stage ('Docker compose'){
+             steps{
+
+                script{
+                    sh 'docker-compose -f docker-compose.yml up -d'
+                }
+            }
+         }
 	}
 }
