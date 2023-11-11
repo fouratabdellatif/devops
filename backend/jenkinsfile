@@ -60,7 +60,7 @@ pipeline {
                dir("backend") 
                {
                  script{
-                 docker.build('nour/achat:$BUILD_NUMBER')
+                 docker.build('arije/achat:$BUILD_NUMBER')
                  }
                }
             }
