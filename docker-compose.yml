@@ -10,9 +10,7 @@ services:
       - MYSQL_DATABASE=achatdb
     networks:
       - my-network
-networks:
-  my-network:
-    driver: bridge
+
   spring-boot-app:
     image: meriemnour/achat
     container_name: docker-compose-spring-boot
@@ -26,7 +24,7 @@ networks:
       - SPRING_DATASOURCE_PASSWORD=root
     networks:
       - my-network
-       
-  networks: 
-    
 
+networks:
+  my-network:
+    driver: bridge
