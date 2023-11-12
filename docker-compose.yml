@@ -1,28 +1,27 @@
-version: '3'
-services:
-  mysql-db:
-    image: mysql:latest
-    container_name: docker-compose-mysql-db
-    ports:
-      - "3306:3307"
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=achatdb
-    networks:
-      - my-network
+version: "3"
 
-  spring-boot-app:
-    image: arijegrissiaa246/achat
-    container_name: docker-compose-spring-boot
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql/mysql-server:8.0
+    restart: unless-stopped
     ports:
-      - "8089:8089"
-    depends_on:
-      - mysql-db
+      - 3306:3306
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-compose-mysql-db:3306/achatdb?&createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    networks:
-      - my-network
-  networks:
-  my-network:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=tpachat
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=1234
+    volumes:
+      - /var/lib/mysql
+
+  spring_app:
+    image: arijegrissiaa246/achat
+    container_name: achatspring
+    restart: on-failure
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/tpachat?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    ports:
+      - 8089:8089
+    depends_on:
+      - mysqldb
