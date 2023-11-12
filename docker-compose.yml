@@ -3,7 +3,7 @@ version: "3"
 services:
   mysqldb:
     container_name: mysqldb
-    image: mysql/mysql:5.7
+    image: mysql/mysql-server:8.0
     restart: unless-stopped
     ports:
       - 3307:3306
