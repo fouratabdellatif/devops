@@ -4,7 +4,7 @@ services:
     image: mysql:latest
     container_name: docker-compose-mysql-db
     ports:
-      - "3307:3306"
+      - "3307:3307"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=achatdb
@@ -25,12 +25,6 @@ services:
     networks:
       - my-network
   
-    ports:
-      - "4200:80"
-    environment:
-      - BACKEND_API_URL=http://192.168.1.94:8080
-    networks:
-      - my-network
-
 networks:
   my-network:
+    driver: bridge
