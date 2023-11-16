@@ -10,6 +10,13 @@ services:
       - MYSQL_DATABASE=achatdb
     networks:
       - my-network
+  angular-app:
+    image: wassim123456/front-angular:latest
+    container_name: angular
+    ports:
+      - "4200:80"
+    networks:
+      - my-network
 
   spring-boot-app:
     image: wassim123456/achatback:latest
