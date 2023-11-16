@@ -51,13 +51,13 @@ pipeline {
                 }
 			}
 		} 
-       stage('nexus'){
+     /*  stage('nexus'){
             steps{
                 dir("backend") {
                     sh "mvn deploy"
                 }
             }
-        }
+        } */
        stage('Docker image') 
         {
             steps 
