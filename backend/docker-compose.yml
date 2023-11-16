@@ -12,7 +12,7 @@ services:
       - my-network
 
   spring-boot-app:
-    image: wassim123456/achatback
+    image: wassim123456/achatback:latest
     container_name: app-back
     ports:
       - "8088:8089"
