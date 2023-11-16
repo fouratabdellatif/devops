@@ -42,7 +42,7 @@ pipeline {
 			}
 		}
       
-	/*	stage('sonarqube'){
+		stage('sonarqube'){
 			steps{
                 dir("backend") {
 				    withSonarQubeEnv(installationName: 'sonar'){
@@ -50,7 +50,7 @@ pipeline {
 				    }
                 }
 			}
-		} */
+		} 
      /*   stage('deploy'){
             steps{
                 dir("backend") {
