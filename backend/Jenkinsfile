@@ -74,7 +74,7 @@ pipeline {
         }
 
 
-/*
+
         stage('Deploy')
         {
 			steps 
@@ -88,7 +88,7 @@ pipeline {
 				
 			}
 		}
-*/
+
 
         stage('Docker image') 
         {
