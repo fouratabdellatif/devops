@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import tn.esprit.rh.achat.controllers.StockRestController;
+import tn.esprit.rh.achat.controllers.FournisseurRestController;
 import tn.esprit.rh.achat.entities.Fournisseur;
 import tn.esprit.rh.achat.repositories.FournisseurRepository;
 import tn.esprit.rh.achat.services.FournisseurServiceImpl;
@@ -87,7 +87,7 @@ public class MockitoTest {
         List<Fournissueur> fourList = new ArrayList<>();
         fourList.add(new Fournissueur(id,"123456","eccc","ORDINAIRE"));
         fourList.add(new Fournissueur(id,"456789","rrrr","ORDINAIRE"));
-        when(repository.findAll()).thenReturn(stockList);
+        when(repository.findAll()).thenReturn(fourList);
 
     }
 
