@@ -1,52 +1,94 @@
-package com.esprit.examen.services;
 
-import java.util.ArrayList;
-import java.util.List;
+package tn.esprit.rh.achat;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import tn.esprit.rh.achat.controllers.StockRestController;
+import tn.esprit.rh.achat.entities.Fournisseur;
+import tn.esprit.rh.achat.repositories.FournisseurRepository;
+import tn.esprit.rh.achat.services.FournisseurServiceImpl;
 
-import com.esprit.examen.entities.CategorieFournisseur;
-import com.esprit.examen.entities.Fournisseur;
-import com.esprit.examen.repositories.FournisseurRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
-@ExtendWith(MockitoExtension.class)
-@SpringBootTest
-public class FournisseurServiceImplMockitoTest {
-	 @Mock
-	 FournisseurRepository fournisseurRepository;
-	 @InjectMocks
-	    FournisseurServiceImpl fournisseurService;
-	    CategorieFournisseur cat = CategorieFournisseur.ORDINAIRE;
-	    Fournisseur f=(Fournisseur.builder().code("203JMT4945").libelle("Firaskh").categorieFournisseur(cat).build());
-	      List<Fournisseur> listFournisseur = new ArrayList<Fournisseur>() {
-	        /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
+import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat.UUID;
+import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-			{
-	            add(Fournisseur.builder().code("192JMT1717").libelle("Ahlem").categorieFournisseur(cat).build());
-	            add(Fournisseur.builder().code("100JMT0912").libelle("kahia").categorieFournisseur(cat).build());
-	        }
-	    };
-	    
-	    @Test
-	     void FindAllFournisseurs(){
-	        Mockito.when(fournisseurRepository.findAll()).thenReturn(listFournisseur);
-	        List<Fournisseur> listFournisseurs = fournisseurService.retrieveAllFournisseurs();
-	        Assertions.assertNotNull(listFournisseurs);
-}
-	    @Test
-	    public void testAddFournisseur() {
-	        Mockito.when(fournisseurRepository.save(f)).thenReturn(f);
-	        Fournisseur f1 = fournisseurService.addFournisseur(f);
-	        Assertions.assertNotNull(f1);
-	    }
+
+@RunWith( SpringRunner.class)
+@ContextConfiguration(classes = {FournisseurServiceImpl.class})
+public class MockitoTest {
+
+    private FournisseurServiceImpl service;
+    private FournisseurRepository repository;
+//    private MockMvc mockMvc;
+//    ObjectMapper objectMapper = new ObjectMapper();
+//    ObjectWriter objectWriter = objectMapper.writer();
+//@Mock
+// private StockRepository stockRepository;
+//@InjectMocks
+//    private StockRestController stockRestController;
+//
+//    long id1 = java.util.UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+//    long id2 = java.util.UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+//    long id3 = java.util.UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+//    Stock RECORD_1 = new Stock(id1,"alimentaire",50,5);
+//    Stock RECORD_2 = new Stock(id2,"électro",100,20);
+//    Stock RECORD_3 = new Stock(id3,"vestimentaire",150,10);
+//@Before
+//    public void setUp(){
+//    MockitoAnnotations.initMocks(this);
+//    this.mockMvc = MockMvcBuilders.standaloneSetup(stockRestController).build();
+//
+//   }
+//@Test
+////    public void getAllRecords_success()throws Exception{
+//
+//    List<Stock> records = new ArrayList<>(Arrays.asList(RECORD_1,RECORD_2,RECORD_3));
+//    Mockito.when(stockRepository.findAll()).thenReturn(records);
+//    mockMvc.perform(MockMvcRequestBuilders
+//            .get("/retrieve-all-stocks")
+//            .contentType(MediaType.APPLICATION_JSON))
+//            .andExpect(status().isOk())
+//            .andExpect(MockMvcResultMatchers.jsonPath("$",hasSize(3)))
+//            .andExpect((ResultMatcher) jsonPath("$[2].libelleStock", is("alimentaire")));
+//}
+
+    @Test
+    public void getFournisseurTest(){
+        System.out.println(" get test fournisseur");
+        long id = java.util.UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+        long id2 = java.util.UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+
+        repository = mock(FournisseurRepository.class);
+        service = new FournisseurServiceImpl(repository);
+
+        List<Fournissueur> fourList = new ArrayList<>();
+        fourList.add(new Fournissueur(id,"123456","eccc","ORDINAIRE"));
+        fourList.add(new Fournissueur(id,"456789","rrrr","ORDINAIRE"));
+        when(repository.findAll()).thenReturn(stockList);
+
+    }
+
 }
