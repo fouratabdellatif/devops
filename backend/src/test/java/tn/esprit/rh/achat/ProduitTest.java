@@ -41,10 +41,15 @@ public class ProduitTest {
     private StockRepository stockRepository;
     @Test
     public void testAddProduit() {
-        Operateur operateur = new Operateur();
-        operateur.setNom("Abdellatif");
-        operateur.setPrenom("Fourat");
-        operateur.setPassword("Fourat12");
+        Produit produit = new Produit();
+
+        
+        produit.setCodePduit("123456");
+        produit.setlibelleProduit("mmmm");
+        produit.setprix("1.5");
+
+        
+        
 
         Operateur addedOperateur = operateurService.addOperateur(operateur);
 
