@@ -53,7 +53,7 @@ public class ProduitTest {
 
        
 
-        assertNotNull(addedProduit.getIdOperateur());
+        assertNotNull(addedProduit.getidProduit());
         assertEquals("123456", addedProduit.getcodeProduit());
         assertEquals("mmmm", addedProduit.setlibelleProduit());
         assertEquals("1.5", addedProduit.setprix());
