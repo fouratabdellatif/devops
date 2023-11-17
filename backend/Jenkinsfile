@@ -35,6 +35,7 @@ pipeline {
             {
           		      dir("backend") 
                       {
+			      //creation des livrables
                  		 sh "mvn clean package -DskipTests=true"
 		 		         archive 'target/*.jar'
                       }
