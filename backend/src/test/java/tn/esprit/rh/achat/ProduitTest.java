@@ -40,6 +40,20 @@ public class ProduitTest {
     @MockBean
     private StockRepository stockRepository;
     @Test
+    public void testAddProduit() {
+        Operateur operateur = new Operateur();
+        operateur.setNom("Abdellatif");
+        operateur.setPrenom("Fourat");
+        operateur.setPassword("Fourat12");
+
+        Operateur addedOperateur = operateurService.addOperateur(operateur);
+
+        assertNotNull(addedOperateur.getIdOperateur());
+        assertEquals("Abdellatif", addedOperateur.getNom());
+        assertEquals("Fourat", addedOperateur.getPrenom());
+        assertEquals("Fourat12", addedOperateur.getPassword());
+    }
+    @Test
     void testRetrieveAllProduits() {
         ArrayList<Produit> produitList = new ArrayList<>();
         when(produitRepository.findAll()).thenReturn(produitList);
