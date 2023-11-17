@@ -46,17 +46,17 @@ public class ProduitTest {
         
         produit.setCodePduit("123456");
         produit.setlibelleProduit("mmmm");
-        produit.setprix("1.5");
+        produit.setprix(1.5);
 
         
-        
+        Produit addedProduit = produitServiceImpl addProduit(Produit)
 
-        Operateur addedOperateur = operateurService.addOperateur(operateur);
+       
 
-        assertNotNull(addedOperateur.getIdOperateur());
-        assertEquals("Abdellatif", addedOperateur.getNom());
-        assertEquals("Fourat", addedOperateur.getPrenom());
-        assertEquals("Fourat12", addedOperateur.getPassword());
+        assertNotNull(addedProduit.getIdOperateur());
+        assertEquals("123456", addedProduit.getcodeProduit());
+        assertEquals("mmmm", addedProduit.setlibelleProduit());
+        assertEquals("1.5", addedProduit.setprix());
     }
     @Test
     void testRetrieveAllProduits() {
